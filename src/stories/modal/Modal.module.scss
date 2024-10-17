@@ -1,0 +1,42 @@
+@use '../../styles/variables' as *;
+
+.modal-dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 25rem;
+  max-width: 90%;
+  padding: 1.25rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-20rem);
+
+  transition:
+    opacity 0.5s ease-in-out,
+    transform 0.5s linear;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $error-color;
+  }
+}

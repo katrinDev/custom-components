@@ -1,0 +1,125 @@
+@use '../../styles/variables' as *;
+
+$input-left-indent: 0.825rem;
+
+@mixin medium {
+  font-size: 1rem;
+  padding: 1rem $input-left-indent;
+  height: 3.5rem;
+}
+
+@mixin small {
+  font-size: 0.875rem;
+  padding: 0.5rem $input-left-indent;
+  height: 2.5rem;
+}
+
+@mixin basic-border {
+  border: 1px solid #ccc;
+}
+
+@mixin focus-hover-styles($color) {
+  &:focus,
+  &:hover {
+    border-width: 2px;
+    border-color: $color;
+    outline: none;
+  }
+}
+
+@mixin focus-input-label-styles($color) {
+  &:focus + .input-label,
+  &:not(:placeholder-shown) + .input-label {
+    top: 0;
+    left: $input-left-indent;
+    font-size: 0.75rem;
+    color: $color;
+
+    padding: 0 0.3rem;
+    z-index: 1;
+    background-color: white;
+    width: max-content;
+  }
+}
+
+@mixin error-styles() {
+  &.error {
+    border-color: $error-color;
+  }
+
+  &.error + .input-label {
+    color: $error-color;
+  }
+}
+
+@mixin disabled-styles() {
+  &:disabled {
+    cursor: not-allowed;
+    @include basic-border();
+  }
+
+  &:disabled + .input-label {
+    color: $text-secondary-color;
+  }
+}
+
+.input-container {
+  position: relative;
+}
+
+.custom-input {
+  box-sizing: border-box;
+  width: 100%;
+  @include basic-border();
+  border-radius: $border-radius;
+  transition: all 0.1s;
+
+  &.primary {
+    @include focus-hover-styles($primary-color);
+    @include focus-input-label-styles($primary-color);
+    @include error-styles();
+    @include disabled-styles();
+  }
+
+  &.secondary {
+    @include focus-hover-styles($secondary-color);
+    @include focus-input-label-styles($secondary-color);
+    @include error-styles();
+    @include disabled-styles();
+  }
+
+  &.medium {
+    @include medium;
+  }
+
+  &.small {
+    @include small;
+  }
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  left: $input-left-indent;
+  transform: translateY(-50%);
+
+  font-size: 1rem;
+  color: $text-secondary-color;
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+
+  &.error {
+    color: $error-color;
+  }
+}
+
+.helper-text {
+  font-size: 0.75rem;
+  color: $text-secondary-color;
+  margin-top: 0.25rem;
+  padding-left: $input-left-indent;
+
+  &.error {
+    color: $error-color;
+  }
+}
