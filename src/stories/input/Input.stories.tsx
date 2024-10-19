@@ -8,7 +8,7 @@ const meta: Meta<typeof Input> = {
   parameters: { layout: 'centered' },
   argTypes: {
     color: { control: { type: 'radio' }, options: ['primary', 'secondary'] },
-    size: { control: { type: 'radio' }, options: ['medium', 'small'] },
+    generalSize: { control: { type: 'radio' }, options: ['medium', 'small'] },
   },
   tags: ['autodocs'],
 };
@@ -45,7 +45,7 @@ export const Small: Story = {
   render: (args) => <ControlledInput {...args} />,
   args: {
     label: 'Small Input',
-    size: 'small',
+    genSize: 'small',
   },
 };
 
@@ -53,7 +53,7 @@ export const Medium: Story = {
   render: (args) => <ControlledInput {...args} />,
   args: {
     label: 'Medium Input',
-    size: 'medium',
+    genSize: 'medium',
   },
 };
 

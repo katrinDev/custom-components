@@ -1,72 +1,78 @@
 import classNames from 'classnames';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, forwardRef, InputHTMLAttributes, useState } from 'react';
 import styles from './Input.module.scss';
 
-//extends InputAttributes
-export interface InputProps {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  size?: 'medium' | 'small';
+  genSize?: 'medium' | 'small';
   color?: 'primary' | 'secondary';
   error?: boolean;
-  disabled?: boolean;
   helperText?: string;
 }
-//forwardRef
-const Input: FC<InputProps> = ({
-  label = 'Default Input',
-  size = 'medium',
-  helperText,
-  error = false,
-  color = 'primary',
-  ...props
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
 
-  const getClassNames = () => {
-    return classNames(styles['custom-input'], {
-      [styles.medium]: size === 'medium',
-      [styles.small]: size === 'small',
-      [styles.error]: error,
-      [styles.primary]: color === 'primary',
-      [styles.secondary]: color === 'secondary',
-    });
-  };
+const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      label = 'Default Input',
+      genSize = 'medium',
+      helperText,
+      error = false,
+      color = 'primary',
+      ...props
+    },
+    ref,
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
 
-  return (
-    <>
-      <div className={styles['input-container']}>
-        <input
-          type="text"
-          id="custom-input"
-          className={getClassNames()}
-          placeholder={isFocused ? (error ? 'Fix an issue...' : 'Your text...') : ''}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          {...props}
-        />
+    const getClassNames = () => {
+      return classNames(styles['custom-input'], {
+        [styles.medium]: genSize === 'medium',
+        [styles.small]: genSize === 'small',
+        [styles.error]: error,
+        [styles.primary]: color === 'primary',
+        [styles.secondary]: color === 'secondary',
+      });
+    };
 
-        <label
-          htmlFor="custom-input"
-          className={classNames(styles['input-label'], {
-            [styles.error]: error,
-          })}
-        >
-          {label}
-        </label>
-      </div>
-      {helperText && (
-        <p
-          className={classNames(styles['helper-text'], {
-            [styles.error]: error,
-          })}
-        >
-          {helperText}
-        </p>
-      )}
-    </>
-  );
-};
+    return (
+      <>
+        <div className={styles['input-container']}>
+          <input
+            type="text"
+            id="custom-input"
+            ref={ref}
+            className={getClassNames()}
+            placeholder={
+              isFocused ? (error ? 'Fix an issue...' : 'Your text...') : ''
+            }
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            {...props}
+          />
+
+          <label
+            htmlFor="custom-input"
+            className={classNames(styles['input-label'], {
+              [styles.error]: error,
+            })}
+          >
+            {label}
+          </label>
+        </div>
+        {helperText && (
+          <p
+            className={classNames(styles['helper-text'], {
+              [styles.error]: error,
+            })}
+          >
+            {helperText}
+          </p>
+        )}
+      </>
+    );
+  },
+);
 
 export default Input;
