@@ -8,7 +8,7 @@ const meta: Meta<typeof Input> = {
   parameters: { layout: 'centered' },
   argTypes: {
     color: { control: { type: 'radio' }, options: ['primary', 'secondary'] },
-    generalSize: { control: { type: 'radio' }, options: ['medium', 'small'] },
+    genSize: { control: { type: 'radio' }, options: ['medium', 'small'] },
   },
   tags: ['autodocs'],
 };

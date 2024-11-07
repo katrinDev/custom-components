@@ -18,56 +18,56 @@ $input-left-indent: 0.825rem;
   border: 1px solid #ccc;
 }
 
-@mixin focus-hover-styles($color) {
-  &:focus,
-  &:hover {
-    border-width: 2px;
-    border-color: $color;
-    outline: none;
-  }
-}
-
-@mixin focus-input-label-styles($color) {
-  &:focus + .input-label,
-  &:not(:placeholder-shown) + .input-label {
-    top: 0;
-    left: $input-left-indent;
-    font-size: 0.75rem;
-    color: $color;
-
-    padding: 0 0.3rem;
-    z-index: 1;
-    background-color: white;
-    width: max-content;
-  }
-}
-
-@mixin error-styles() {
-  &.error {
-    border-color: $error-color;
-  }
-
-  &.error + .input-label {
-    color: $error-color;
-  }
-}
-
-@mixin disabled-styles() {
-  &:disabled {
-    cursor: not-allowed;
-    @include basic-border();
-  }
-
-  &:disabled + .input-label {
-    color: $text-secondary-color;
-  }
-}
-
 .input-container {
   position: relative;
 }
 
 .custom-input {
+  @mixin focus-hover-styles($color) {
+    &:focus,
+    &:hover {
+      border-width: 2px;
+      border-color: $color;
+      outline: none;
+    }
+  }
+
+  @mixin focus-input-label-styles($color) {
+    &:focus + .input-label,
+    &:not(:placeholder-shown) + .input-label {
+      top: 0;
+      left: $input-left-indent;
+      font-size: 0.75rem;
+      color: $color;
+
+      padding: 0 0.3rem;
+      z-index: 1;
+      background-color: white;
+      width: max-content;
+    }
+  }
+
+  @mixin error-styles() {
+    &.error {
+      border-color: $error-color;
+    }
+
+    &.error + .input-label {
+      color: $error-color;
+    }
+  }
+
+  @mixin disabled-styles() {
+    &:disabled {
+      cursor: not-allowed;
+      @include basic-border();
+    }
+
+    &:disabled + .input-label {
+      color: $text-secondary-color;
+    }
+  }
+
   box-sizing: border-box;
   width: 100%;
   @include basic-border();
