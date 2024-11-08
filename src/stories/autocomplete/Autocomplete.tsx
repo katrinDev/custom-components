@@ -33,26 +33,16 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef<
   };
 
   const onOptionSelected = (option: string) => {
-    console.log('heekjfnv');
-    console.log(option);
     setValue(option);
-    // setIsFocused(false);
+    setIsFocused(false);
   };
 
   useEffect(() => {
-    console.log(isFocused);
-  }, [isFocused]);
-
-  useEffect(() => {
-    setFilteredOptions(options.filter((opt) => opt.label.includes(value)));
-  }, [defferedValue]);
+    setFilteredOptions(options.filter((opt) => opt.label.includes(defferedValue)));
+  }, [defferedValue, options]);
 
   return (
-    <div
-      className={styles['autocomplete-container']}
-      onFocus={() => setIsFocused(true)}
-      onMouseUp={() => setIsFocused(false)}
-    >
+    <div className={styles['autocomplete-container']}>
       <div className={inputStyles['input-container']}>
         <input
           type="text"
@@ -62,6 +52,11 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef<
           onChange={(e) => setValue(e.target.value)}
           placeholder={isFocused ? 'Choose an option' : ''}
           className={getInputClassNames()}
+          onFocus={() => {
+            setIsFocused(true);
+            setFilteredOptions([...options]);
+          }}
+          onBlur={() => setIsFocused(false)}
           {...props}
         />
 
@@ -72,7 +67,13 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef<
       {isFocused && (
         <div className={styles['options-block']}>
           {filteredOptions.map((opt) => (
-            <p className={styles['autocomplete-item']} key={opt.id}>
+            <p
+              className={classNames(styles['autocomplete-item'], {
+                [styles.selected]: opt.label === value,
+              })}
+              key={opt.id}
+              onMouseDown={() => onOptionSelected(opt.label)}
+            >
               {opt.label}
             </p>
           ))}

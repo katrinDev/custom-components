@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Modal, { ModalProps } from './Modal';
 import { useCallback, useState } from 'react';
-import styles from '../../styles/Button.module.scss';
+import styles from '../button/Button.module.scss';
 
 const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
